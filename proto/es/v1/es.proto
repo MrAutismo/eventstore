@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package eventstore;
+
+option go_package = "eventstorepb/v1";
+
+message Event {
+  string id = 1;
+  string name = 2;
+  string domain = 3;
+  bytes data = 4;
+  int64 timestamp = 5;
+}
+
+message SaveEventRequest {
+  Event event = 1;
+}
+
+message SaveEventResponse {
+  bool success = 1;
+}
+
+message StreamEventsRequest {
+  string name = 1;
+  string domain = 2;
+}
+
+message StreamEventsResponse {
+  Event event = 1;
+}
+
+service EventStore {
+  rpc SaveEvent(SaveEventRequest) returns (SaveEventResponse);
+  rpc StreamEvents(StreamEventsRequest) returns (stream StreamEventsResponse);
+}
