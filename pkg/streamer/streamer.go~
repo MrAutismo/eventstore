@@ -45,6 +45,7 @@ func (s *Streamer) Stream(ctx context.Context, domain, name string) {
 		evt := resp.GetEvent()
 		logrus.Infof("Received event: %+v\n", evt)
 		s.handle(evt)
+
 	}
 }
 
